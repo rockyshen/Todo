@@ -7,12 +7,15 @@
 
 import Foundation
 
-struct Todo: Identifiable {
+struct Todo: Identifiable,Equatable {
     var id: String { title }
     var emoji: String
     var title: String
     var dueDate: Date
     var isDone: Bool
+    
+    // 如何自动生成可比较协议的实现方法？
+    
 }
 
 class TodoStore: ObservableObject{
@@ -28,4 +31,17 @@ class TodoStore: ObservableObject{
     }
     
     // func
+    // 删除一条todo
+    func delete(todo: Todo){
+        // 找到存在的todo的index
+        guard let index = todos.firstIndex(where: {$0.id == todo.id} ) else { return }
+
+        // 从数组中移除
+        todos.remove(at: index)
+    }
+    
+    func moveTodos(fromOffsets: IndexSet, toOffset: Int){
+        todos.move(fromOffsets: fromOffsets, toOffset: toOffset)
+    }
+
 }

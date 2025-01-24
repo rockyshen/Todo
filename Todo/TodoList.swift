@@ -18,7 +18,22 @@ struct TodoList: View {
                     title: todo.title,
                     dueDate: todo.dueDate,
                     isDone: todo.isDone)
+                .swipeActions(edge: .leading){
+                    Button("Edit"){
+                        //实现编辑页的跳转逻辑
+                    }.tint(.indigo)
+                }                
+                .swipeActions(edge: .trailing){
+                    Button("Delete",role: .destructive){
+                        //实现删除逻辑
+                        todoStore.delete(todo: todo)
+                    }
+                }
             }
+            // indices表示当前位置1开始，newOffset表示目标位置
+            .onMove(perform: { indices, newOffset in
+                todoStore.moveTodos(fromOffsets: indices, toOffset: newOffset)
+            })
         }
     }
 }
