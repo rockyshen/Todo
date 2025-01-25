@@ -8,7 +8,7 @@
 import Foundation
 
 struct Todo: Identifiable,Equatable {
-    var id: String { title }
+    var id: UUID = UUID()
     var emoji: String
     var title: String
     var dueDate: Date
@@ -42,6 +42,12 @@ class TodoStore: ObservableObject{
     
     func moveTodos(fromOffsets: IndexSet, toOffset: Int){
         todos.move(fromOffsets: fromOffsets, toOffset: toOffset)
+    }
+    
+    // 更新
+    func updateTodo(todo: Todo){
+        guard let index = todos.firstIndex(where: {$0.id == todo.id}) else {return}
+        todos[index] = todo
     }
 
 }
