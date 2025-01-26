@@ -10,18 +10,22 @@ import SwiftUI
 struct TodoList: View {
     // @Binding:作用于一些基本数据类型：Todo, Int, Bool
     // @Bindable：专门给Observable的class服务
-    @Bindable var todoStore: TodoStore     // 绑定contentView传递过来的todoStore
+    // 绑定contentView传递过来的todoStore
+    @Bindable var todoStore: TodoStore
     
-    @State var editingTodo: Todo?
+    @State private var editingTodo: Todo?
     
     var body: some View {
         List {
             ForEach($todoStore.todos) {todo in
                 TodoView(
-                    emoji: todo.wrappedValue.emoji,     // @Bindable绑定的数据，需要用wrappedValue解包出来。
-                    title: todo.wrappedValue.title,
-                    dueDate: todo.wrappedValue.dueDate,
-                    isDone: todo.wrappedValue.isDone)
+                    todo: todo
+                    // emoji: todo.wrappedValue.emoji,
+                    // @Bindable绑定的数据，需要用wrappedValue解包出来。
+                    // title: todo.wrappedValue.title,
+                    // dueDate: todo.wrappedValue.dueDate,
+                    // isDone: todo.wrappedValue.isDone
+                )
                 .swipeActions(edge: .leading){
                     Button("Edit"){
                         //实现编辑页的跳转逻辑

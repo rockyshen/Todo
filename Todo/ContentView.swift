@@ -10,7 +10,7 @@ import SwiftUI
 struct ContentView: View {
     @State private var isShowingAddView: Bool = false
     
-    @State private var todoStore = TodoStore()
+    @State private var todoStore = TodoStore()    // 全局应该只初始化一个todoStore实例
     
     var body: some View {
         NavigationView {
