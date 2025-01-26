@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Todo: Identifiable,Equatable {
+struct Todo: Identifiable,Equatable,Codable {
     var id: UUID = UUID()
     var emoji: String
     var title: String
@@ -20,15 +20,20 @@ struct Todo: Identifiable,Equatable {
 
 @Observable
 class TodoStore{
-    var todos: [Todo] = []   // :ObserveObject + @Published
+    var todos: [Todo] = []{
+        didSet {              // 属性一有更新，就出发持久话保存
+            saveTodos()
+        }
+    }   // :ObserveObject + @Published
     
     // mock模拟一些数据
     init() {
-        todos = [
-            .init(emoji: "⌨️", title: "写代码",dueDate: .now, isDone: false),
-            .init(emoji: "💃", title: "跳舞",dueDate: .now, isDone: true),
-            .init(emoji: "🏃", title: "跑步",dueDate: .now, isDone: false)
-        ]
+//        todos = [
+//            .init(emoji: "⌨️", title: "写代码",dueDate: .now, isDone: false),
+//            .init(emoji: "💃", title: "跳舞",dueDate: .now, isDone: true),
+//            .init(emoji: "🏃", title: "跑步",dueDate: .now, isDone: false)
+//        ]
+        loadTodos()
     }
     
     // func
@@ -54,6 +59,30 @@ class TodoStore{
     // 增加
     func addTodo(todo: Todo) {
         todos.append(todo)
+    }
+    
+    // 【FileManager】将todos保存在沙盒中
+    func saveTodos() {
+        do {
+            let todoData = try JSONEncoder().encode(todos)
+            let url = URL.documentsDirectory.appending(path: "Todos")
+            print(url)
+            try todoData.write(to: url)
+        } catch {
+            print(error)
+        }
+    }
+    
+    // 【FileManager】从沙盒中读取todos
+    func loadTodos() {
+        let url = URL.documentsDirectory.appending(path: "Todos")
+        do {
+            let todoData = try Data(contentsOf: url)
+            let todos = try JSONDecoder().decode([Todo].self, from: todoData)
+            self.todos = todos   // 从本地文件读取并解码的todos，赋值给属性
+        } catch {
+            print(error)
+        }
     }
 
 }
