@@ -18,8 +18,9 @@ struct Todo: Identifiable,Equatable {
     
 }
 
-class TodoStore: ObservableObject{
-    @Published var todos: [Todo] = []
+@Observable
+class TodoStore{
+    var todos: [Todo] = []   // :ObserveObject + @Published
     
     // mock模拟一些数据
     init() {
@@ -48,6 +49,11 @@ class TodoStore: ObservableObject{
     func updateTodo(todo: Todo){
         guard let index = todos.firstIndex(where: {$0.id == todo.id}) else {return}
         todos[index] = todo
+    }
+    
+    // 增加
+    func addTodo(todo: Todo) {
+        todos.append(todo)
     }
 
 }

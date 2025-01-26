@@ -8,28 +8,30 @@
 import SwiftUI
 
 struct TodoList: View {
-    @StateObject var todoStore = TodoStore()
+    // @Binding:作用于一些基本数据类型：Todo, Int, Bool
+    // @Bindable：专门给Observable的class服务
+    @Bindable var todoStore: TodoStore     // 绑定contentView传递过来的todoStore
     
     @State var editingTodo: Todo?
     
     var body: some View {
         List {
-            ForEach(todoStore.todos) {todo in
+            ForEach($todoStore.todos) {todo in
                 TodoView(
-                    emoji: todo.emoji,
-                    title: todo.title,
-                    dueDate: todo.dueDate,
-                    isDone: todo.isDone)
+                    emoji: todo.wrappedValue.emoji,     // @Bindable绑定的数据，需要用wrappedValue解包出来。
+                    title: todo.wrappedValue.title,
+                    dueDate: todo.wrappedValue.dueDate,
+                    isDone: todo.wrappedValue.isDone)
                 .swipeActions(edge: .leading){
                     Button("Edit"){
                         //实现编辑页的跳转逻辑
-                        editingTodo = todo
+                        editingTodo = todo.wrappedValue
                     }.tint(.indigo)
                 }                
                 .swipeActions(edge: .trailing){
                     Button("Delete",role: .destructive){
                         //实现删除逻辑
-                        todoStore.delete(todo: todo)
+                        todoStore.delete(todo: todo.wrappedValue)
                     }
                 }
             }
@@ -43,16 +45,13 @@ struct TodoList: View {
             content: { todo in
                 TodoEditView(
                     todo: todo,
-                    updatedTodo: { newTodo in
-//                        print("来自TodoList的执行，结果为：\(newTodo.title)")
-                        todoStore.updateTodo(todo: newTodo)
-                    }
+                    completion: {newTodo in todoStore.updateTodo(todo: newTodo)}
                 )
             }
         )
     }
 }
 
-#Preview {
-    TodoList()
-}
+//#Preview {
+//    TodoList()
+//}
