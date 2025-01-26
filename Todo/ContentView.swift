@@ -37,8 +37,7 @@ struct ContentView: View {
                     .padding(.bottom,8)
                 }
                 .sheet(
-                    isPresented: $isShowingAddView,
-                    // 对比TodoList里的content，为什么是 todo in ?  但是这里不用，直接TodoAddView
+                    isPresented: $isShowingAddView,  // Bool类型，直接返回一个View，区别于Optinal类型
                     content: { TodoAddView(
                         completion: {newTodo in todoStore.addTodo(todo: newTodo)})
                     }

@@ -41,7 +41,7 @@ struct TodoList: View {
             })
         }
         .sheet(
-            item: $editingTodo,
+            item: $editingTodo,   // Optional类型，content获取todo值，再返回View
             content: { todo in
                 TodoEditView(
                     todo: todo,
@@ -52,6 +52,6 @@ struct TodoList: View {
     }
 }
 
-//#Preview {
-//    TodoList()
-//}
+#Preview {
+    TodoList(todoStore: TodoStore())
+}
