@@ -10,11 +10,12 @@ import SwiftUI
 struct ContentView: View {
     @State private var isShowingAddView: Bool = false
     
-    @State private var todoStore = TodoStore()
+//    @State private var todoStore = TodoStore()
+    
     
     var body: some View {
         NavigationView {
-            TodoList(todoStore: todoStore)
+            TodoList()
                 .navigationTitle("Todo List")
                 .safeAreaInset(edge: .bottom) {
                     Button(action: {
@@ -38,8 +39,7 @@ struct ContentView: View {
                 }
                 .sheet(
                     isPresented: $isShowingAddView,  // Bool类型，直接返回一个View，区别于Optinal类型
-                    content: { TodoAddView(
-                        completion: {newTodo in todoStore.addTodo(todo: newTodo)})
+                    content: { TodoAddView()
                     }
                 
                 )

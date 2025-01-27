@@ -6,13 +6,15 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct TodoAddView: View {
     @State var todo: Todo = .init(emoji: "", title: "", dueDate: .now, isDone: false)
     
     @Environment(\.dismiss) private var dismiss   // 关闭sheet弹出页面
     
-    let completion: (Todo) -> Void            // 更新后的Todo
+    // let completion: (Todo) -> Void            // 更新后的Todo
+    @Environment(\.modelContext) var modelContext  // 操作数据库的实例
     
     var body: some View {
         NavigationStack {
@@ -31,9 +33,11 @@ struct TodoAddView: View {
             .safeAreaInset(edge: .bottom) {
                 Button(action: {
                     // 完成按钮的具体逻辑
-                    // 1.关闭Add页面；2、将数据往父目录提交
+                    // 1.关闭Add页面；
                     dismiss()
-                    completion(todo)
+                    // 2、利用SwiftData，插入一条新数据
+                    modelContext.insert(todo)
+                    try? modelContext.save()  // 保险起见，保存一下
                 }, label: {
                     HStack(spacing: 12){
                         Text("Done")
@@ -57,7 +61,7 @@ struct TodoAddView: View {
         emoji: "🍉",
         title: "吃西瓜",
         dueDate: .now,
-        isDone: false),
-        completion: {newTodo in print(newTodo.emoji)})
+        isDone: false)
+    )
     
 }

@@ -16,6 +16,7 @@
 		6427D3FE2D435CFC00A4555A /* TodoStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6427D3FD2D435CFC00A4555A /* TodoStore.swift */; };
 		6427D4002D438C8D00A4555A /* TodoEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6427D3FF2D438C8D00A4555A /* TodoEditView.swift */; };
 		6427D4022D454A9C00A4555A /* TodoAddView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6427D4012D454A9C00A4555A /* TodoAddView.swift */; };
+		64384E5E2D470E4D00B58951 /* Todo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64384E5D2D470E4D00B58951 /* Todo.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +31,7 @@
 		6427D3FD2D435CFC00A4555A /* TodoStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoStore.swift; sourceTree = "<group>"; };
 		6427D3FF2D438C8D00A4555A /* TodoEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoEditView.swift; sourceTree = "<group>"; };
 		6427D4012D454A9C00A4555A /* TodoAddView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoAddView.swift; sourceTree = "<group>"; };
+		64384E5D2D470E4D00B58951 /* Todo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Todo.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,6 +74,7 @@
 				6427D3FD2D435CFC00A4555A /* TodoStore.swift */,
 				6427D3FF2D438C8D00A4555A /* TodoEditView.swift */,
 				6427D4012D454A9C00A4555A /* TodoAddView.swift */,
+				64384E5D2D470E4D00B58951 /* Todo.swift */,
 			);
 			path = Todo;
 			sourceTree = "<group>";
@@ -157,6 +160,7 @@
 				6427D4002D438C8D00A4555A /* TodoEditView.swift in Sources */,
 				6427D3FA2D4340E500A4555A /* TodoView.swift in Sources */,
 				6427D4022D454A9C00A4555A /* TodoAddView.swift in Sources */,
+				64384E5E2D470E4D00B58951 /* Todo.swift in Sources */,
 				6427D3FE2D435CFC00A4555A /* TodoStore.swift in Sources */,
 				6427D3ED2D43408C00A4555A /* ContentView.swift in Sources */,
 				6427D3EB2D43408C00A4555A /* TodoApp.swift in Sources */,

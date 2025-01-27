@@ -15,7 +15,8 @@ struct TodoEditView: View {
     // 编辑完成后的回调操作！
     // 将这个Filed名为completion的属性，定义成一个闭包函数方法，每次实例化的时候需要实现具体怎么执行
     // 函数的参数是一个Edit页面传递给我们的Todo新对象
-    let completion: (Todo) -> Void
+//    let completion: (Todo) -> Void
+    @Environment(\.modelContext) var modelContext
     
     var body: some View {
         NavigationStack {
@@ -34,9 +35,11 @@ struct TodoEditView: View {
             .safeAreaInset(edge: .bottom) {
                 Button(action: {
                     // 完成按钮的具体逻辑
-                    // 1.关闭Edit页面；2、将数据往父目录提交
+                    // 1.关闭Edit页面；
                     dismiss()
-                    completion(todo)
+//                    completion(todo)
+                    // 2、数据利用SwiftData存入
+                    try? modelContext.save()
                 }, label: {
                     HStack(spacing: 12){
                         Text("Done")
@@ -63,10 +66,10 @@ struct TodoEditView: View {
             title: "写代码",
             dueDate: .now,
             isDone: false
-        ),
-        completion: { todo in
-            // 此处写在()后面的{}，也是闭包的特性，可以作为另一个闭包类型的参数，进行初始化
-            print("来自TodoEditView的执行，结果为：\(todo.emoji)")
-        }
+        )
+//        completion: { todo in
+//            // 此处写在()后面的{}，也是闭包的特性，可以作为另一个闭包类型的参数，进行初始化
+//            print("来自TodoEditView的执行，结果为：\(todo.emoji)")
+//        }
     )
 }
